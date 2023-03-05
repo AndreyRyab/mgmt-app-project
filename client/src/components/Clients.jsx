@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-
 import { Spinner } from './Spinner';
 
 import {
@@ -7,7 +6,6 @@ import {
 } from '../queries/clientQueries';
 
 import { ClientRow } from './ClientRow';
-
 
 
 export const Clients = () => {
