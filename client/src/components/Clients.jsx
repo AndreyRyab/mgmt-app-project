@@ -22,7 +22,7 @@ export const Clients = () => {
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Btn</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
