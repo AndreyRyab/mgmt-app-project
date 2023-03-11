@@ -11,8 +11,6 @@ const {
   GraphQLEnumType,
 } = require('graphql');
 
-// Client Type
-
 const ClientType = new GraphQLObjectType({
   name: 'Client',
   fields: () => ({
@@ -22,8 +20,6 @@ const ClientType = new GraphQLObjectType({
     phone: { type: GraphQLString },
   }),
 });
-
-// Project Type
 
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
@@ -52,7 +48,7 @@ const RootQuery = new GraphQLObjectType({
     },
     project: {
       type: ProjectType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Project.findById(args.id);
       },
@@ -65,7 +61,7 @@ const RootQuery = new GraphQLObjectType({
     },
     client: {
       type: ClientType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Client.findById(args.id);
       },
@@ -88,7 +84,7 @@ const mutation = new GraphQLObjectType({
           name: args.name,
           email: args.email,
           phone: args.phone,
-        })
+        });
 
         return client.save();
       },
@@ -99,6 +95,12 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+        Project.find({ clientId: args.id }).then((projects) => {
+          projects.forEach((project) => {
+            project.deleteOne();
+          });
+        });
+
         return Client.findByIdAndRemove(args.id);
       },
     },
@@ -111,9 +113,9 @@ const mutation = new GraphQLObjectType({
           type: new GraphQLEnumType({
             name: 'ProjectStatus',
             values: {
-              'new': { value: 'Not started'},
-              'progress': { value: 'In progress'},
-              'completed': { value: 'Completed'},
+              new: { value: 'Not started' },
+              progress: { value: 'In progress' },
+              completed: { value: 'Completed' },
             },
             defaultValue: 'Not started',
           }),
@@ -126,7 +128,7 @@ const mutation = new GraphQLObjectType({
           description: args.description,
           status: args.status,
           clientId: args.clientId,
-        })
+        });
 
         return project.save();
       },
@@ -150,9 +152,9 @@ const mutation = new GraphQLObjectType({
           type: new GraphQLEnumType({
             name: 'ProjectStatusUpdate',
             values: {
-              'new': { value: 'Not started'},
-              'progress': { value: 'In progress'},
-              'completed': { value: 'Completed'},
+              new: { value: 'Not started' },
+              progress: { value: 'In progress' },
+              completed: { value: 'Completed' },
             },
           }),
         },
