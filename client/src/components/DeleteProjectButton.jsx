@@ -4,13 +4,13 @@ import { FaTrash } from 'react-icons/fa';
 import { GET_PROJECTS } from '../queries/projectQueries';
 import { DELETE_PROJECT } from '../mutations/projectMutations';
 
-export const DeleteProjectButton = ({ projectID }) => {
+export const DeleteProjectButton = ({ projectId }) => {
   const navigate = useNavigate();
   
   const [deleteProject] = useMutation(
     DELETE_PROJECT,
     {
-      variables: { id: projectID },
+      variables: { id: projectId },
       onCompleted: () => navigate('/'),
       refetchQueries: [{ query: GET_PROJECTS }],
     },
