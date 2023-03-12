@@ -1,4 +1,4 @@
-# GraphQL studuing project
+# GraphQL studying project
 Fullstack application -- management service for creating and editing users and related projects info.
 
 Huge thanks to [bradtraversy](https://github.com/bradtraversy) for the tutorial.
